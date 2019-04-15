@@ -18,6 +18,16 @@ def preview(request):
     )
 
 
+def export_table(request):
+    speakers = Speaker.objects.prefetch_related('talks', 'workshops').order_by('full_name')
+
+    return TemplateResponse(
+        request,
+        template='programme/export-table.html',
+        context={'speakers': speakers}
+    )
+
+
 def social_media_generator(request):
     speakers = Speaker.objects.prefetch_related('talks', 'workshops').order_by('full_name')
 
