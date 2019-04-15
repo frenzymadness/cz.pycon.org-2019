@@ -18,6 +18,16 @@ def preview(request):
     )
 
 
+def export_table(request):
+    speakers = Speaker.objects.prefetch_related('talks', 'workshops').order_by('full_name')
+
+    return TemplateResponse(
+        request,
+        template='programme/export-table.html',
+        context={'speakers': speakers}
+    )
+
+
 def talks_list(request):
     nonbackup_talks = Talk.objects.filter(is_backup=False)
     talks = nonbackup_talks.filter(is_public=True).order_by('title')
