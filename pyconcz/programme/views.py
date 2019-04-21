@@ -31,7 +31,7 @@ def social_media_generator(request):
 def talks_list(request):
     nonbackup_talks = Talk.objects.filter(is_backup=False)
     talks = nonbackup_talks.filter(is_public=True).order_by('title')
-    more_to_come = len(nonbackup_talks.filter(is_public=False)) > 0
+    more_to_come = nonbackup_talks.filter(is_public=False).exists()
 
     return TemplateResponse(
         request,
@@ -43,7 +43,7 @@ def talks_list(request):
 def workshops_list(request):
     nonbackup_workshops = Workshop.objects.filter(is_backup=False)
     workshops = nonbackup_workshops.filter(is_public=True).order_by('title')
-    more_to_come = len(nonbackup_workshops.filter(is_public=False)) > 0
+    more_to_come = nonbackup_workshops.filter(is_public=False).exists()
 
     return TemplateResponse(
         request,
@@ -59,7 +59,7 @@ def session_detail(request, type, session_id):
     return TemplateResponse(
         request,
         template='programme/{}_detail.html'.format(type),
-        context={'talk': obj}
+        context={'session': obj}
     )
 
 
