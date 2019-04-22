@@ -16,6 +16,10 @@
     padding-bottom: calc(100% + #{map-get($spacers, 3)/2});
 }
 
+.pc-embed-responsive-20by21::before {
+    padding-top: 105%;
+}
+
 .pc-img-effect {
     $pc-base-effect: saturate(40%) hue-rotate(-35deg);
 

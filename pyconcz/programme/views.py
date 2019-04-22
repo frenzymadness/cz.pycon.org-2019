@@ -20,11 +20,14 @@ def preview(request):
 
 def social_media_generator(request):
     speakers = Speaker.objects.prefetch_related('talks', 'workshops').order_by('full_name')
+    talks = Talk.objects.order_by('title')
+    workshops = Workshop.objects.order_by('title')
+    sessions = list(chain(talks, workshops))
 
     return TemplateResponse(
         request,
         template='programme/social_media_generator.html',
-        context={'speakers': speakers}
+        context={'sessions': sessions, 'speakers': speakers}
     )
 
 

@@ -8,6 +8,91 @@
 
 
 {% block main %}
+    <div class="container-fluid bg-dark  text-white py-5">
+        <div>
+            <h1>Social Media Images Helper</h1>
+            <p class="lead">This should be run locally with full size images for best results.</p>
+
+            <h2>Filename list</h2>
+            <p>{% for session in sessions %}<br>{{ session.type }}{{ session.id }}.png{% endfor %}</p>
+
+            <h2>Public link list (for cache invalidation)</h2>
+            <p>{% for session in sessions %}<br>https://{{ request.get_host }}{% url 'session_detail' type=session.type session_id=session.id %}{% endfor %}</p>
+
+            <h2>Session list</h2>
+            <ul class="small pc-session-info">
+                {% for session in sessions %}
+                    <li class="{% if session.og_image %}bg-success{% else %}bg-danger{% endif %}">
+                        <a class="text-white" href="#{{ session.type }}{{ session.id }}">{{ session.title }}</a>
+                        <br>a {{ session.type }} by {{ session.speakers|join:' and ' }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% for session in sessions %}
+            <div
+                id="{{ session.type }}{{ session.id }}"
+                class="bg-white mx-auto"
+                style="width: 1200px; height: 630px; overflow: hidden;margin-bottom:51px;"
+            >
+                <div class="card pc-session-list bg-transparent flex-row">
+                    <a
+                        class="
+                            card-img-overlay
+                            pc-img-effect-dark-fallback
+                            text-decoration-none
+                            d-flex flex-column flex-wrap align-items-stretch justify-content-between
+                            {{ session.speakers|length_is:1|yesno:'p-5 text-black,text-white px-5 py-4' }}
+                        "
+                        {% if session.speakers|length_is:1 %}style="left:630px;width:570px;"{% endif %}
+
+                        href="#{{ session.type }}{{ session.id }}"
+                    >
+                        <h2 class="card-title pc-session-list-list-heading mb-0" style="font-size:300%;">
+                            {{ session.title|strip_shy }}
+                        </h2>
+
+                        <div class="d-flex flex-row justify-content-between align-items-end">
+                            {% for speaker in session.speakers %}
+                                <div class="font-weight-bold {{ session.speakers|length_is:1|yesno:',w-50' }} {{ forloop.counter0|yesno:'pl-5,' }}" style="font-size:250%;">
+                                    {{ speaker.full_name|strip_shy }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </a>
+
+                    {% for speaker in session.speakers %}
+                        <div
+                            class="embed-responsive {{ session.speakers|length_is:1|yesno:'embed-responsive-1by1,pc-embed-responsive-20by21' }}"
+                            style="width:{{ session.speakers|length_is:1|yesno:'630px,50%' }};"
+                        >
+                            <img
+                                src="{{ speaker.photo.url }}"
+                                class="embed-responsive-item pc-object-fit-cover pc-img-effect"
+                                alt="{{ session.speakers.full_name }} photo"
+                            >
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            {% comment %}
+            <div class="bg-white mx-auto mt-6 mb-2" style="width: 1200px; height: 630px; overflow: hidden;">
+                <h2>{{ session.title }}</h2>
+                {% for speaker in session.speakers %}
+                    <div class="mh-100" style="width:630px;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <img class="img-fluid pc-img-effect embed-responsive-item" src="{{ speaker.photo.url }}" alt="">
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>{% endcomment %}
+        {% endfor %}
+
+    </div>
+
     <div class="container-fluid bg-danger py-5">
 
         {% for speaker in speakers %}
@@ -46,13 +131,13 @@
                 {{ speaker.bio|markdown }}
 
                 <p>
-                    Twitter
                     {% if speaker.twitter %}
+                        Twitter
                         <a href="https://twitter.com/{{ speaker.twitter }}">https://twitter.com/{{ speaker.twitter }}</a>
                     {% endif %}
 
-                    GitHub
                     {% if speaker.github %}
+                        GitHub
                         <a href="https://github.com/{{ speaker.github }}">https://github.com/{{ speaker.github }}</a>
                     {% endif %}
                 </p>
