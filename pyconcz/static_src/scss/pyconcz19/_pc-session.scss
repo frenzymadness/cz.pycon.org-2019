@@ -11,7 +11,9 @@
 
         p,
         ul,
-        ol {
+        ol,
+        .pc-session-registration,
+        .pc-session-flags {
             display: inline-block;
             width: 100%;
         }
