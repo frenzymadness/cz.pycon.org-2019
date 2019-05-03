@@ -62,6 +62,7 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
+
                         {% if session.in_data_track %}
                             <div class="pc-session-list-pydata">
                                 <div class="pc-session-list-pydata-holder">
@@ -85,7 +86,7 @@
                             <img
                                 src="{{ speaker.photo.url }}"
                                 class="embed-responsive-item pc-object-fit-cover pc-img-effect-dark"
-                                alt="{{ session.speakers.full_name }} photo"
+                                alt=""
                             >
                         </div>
                     {% endfor %}
@@ -99,7 +100,7 @@
                             card-img-overlay
                             text-white text-decoration-none
                             d-flex flex-column flex-wrap align-items-stretch
-                        ">
+                    ">
                         <div class="pc-session-list-speaker d-flex flex-column justify-content-between">
                             <h2 class="card-title pc-session-list-list-heading">
                                 That’s not all!
@@ -116,11 +117,10 @@
 
             {% block other_sessions %}
                 <div class="card pc-session-list bg-light">
-                    <a href="{{ other_session_url }}"
-                       class="
-                            card-img-overlay
-                            d-flex flex-column flex-wrap align-items-stretch
-                        ">
+                    <a
+                        href="{{ other_session_url }}"
+                        class="card-img-overlay d-flex flex-column flex-wrap align-items-stretch"
+                    >
                         <div class="pc-session-list-speaker d-flex flex-column justify-content-end">
                             <p class="card-text font-weight-bold">
                                 See our {{ other_session_name }}
