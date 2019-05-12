@@ -21,6 +21,10 @@
     max-width: map-get($container-max-widths, xl);
 }
 
+.pc-min-w-md {
+    min-width: 12rem;
+}
+
 .pc-object-fit-cover {
     object-fit: cover;
 }
@@ -33,6 +37,9 @@
     padding-top: 105%;
 }
 
+.pc-embed-responsive-3by4-pb-3 {
+    height: calc(100%);
+}
 
 .pc-multicol {
     @include media-breakpoint-up(md) {
@@ -75,6 +82,17 @@
                 background-color: transparent;
             }
         }
+    }
+}
+
+.pc-bg-cover-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-blend-mode: multiply;
+
+    &-brown {
+        background-color: rgba($pc-brown, 0.8);
     }
 }
 
