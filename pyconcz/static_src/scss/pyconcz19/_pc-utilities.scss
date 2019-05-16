@@ -103,6 +103,10 @@
     margin-right: $pc-shadow-horizontal;
     margin-bottom: $pc-shadow-horizontal;
     box-shadow: $pc-shadow-vertical $pc-shadow-horizontal 0 $primary;
+
+    &-dark {
+        box-shadow: $pc-shadow-vertical $pc-shadow-horizontal 0 $dark;
+    }
 }
 
 .pc-iconlink {
@@ -139,8 +143,8 @@
         }
     }
 
-    $pc-blue-icon-color: lighten(desaturate($pc-deepblue, 35%), 10%);
-    $pc-blue-icon-hover-color: lighten(desaturate($pc-blue, 35%), 10%);
+    $pc-blue-icon-color: lighten(desaturate($pc-deepblue, 15%), 10%);
+    $pc-blue-icon-hover-color: darken($pc-blue-icon-color, 15%);
 
     &-blue#{&}-twitter {
         @include icon-twitter($pc-blue-icon-color);
