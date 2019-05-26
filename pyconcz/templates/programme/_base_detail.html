@@ -102,6 +102,10 @@
                 </p>
             {% endif %}
 
+            {% if phases.workshops == 'details_complete_public' and session.attendee_limit > 0 %}
+                <p>There will be maximum of {{ session.attendee_limit }} attendees.</p>
+            {% endif %}
+
             {% if session.registration %}
                 <div class="pc-session-registration">
                     {% if phases.workshops_registration == 'timed_out' %}
@@ -114,11 +118,11 @@
                     {% elif phases.workshops_registration != 'hidden' %}
                         <p>
                             {% if session.registration == 'without' %}
-                                No registration will be required to attend.
+                                No registration will be required to&nbsp;attend.
                             {% elif session.registration == 'free' %}
-                                Free registration available to PyCon&nbsp;CZ ticket holders {% if phases.workshops_registration == 'announced' %}at&nbsp;the beginning of&nbsp;June{% endif %} will be required to attend.
+                                Free registration available to PyCon&nbsp;CZ ticket holders {% if phases.workshops_registration == 'announced' %}at&nbsp;the beginning of&nbsp;June{% endif %} will be required to&nbsp;attend.
                             {% elif session.registration == 'paid' %}
-                                Paid registration {% if phases.workshops_registration == 'announced' %}at&nbsp;the beginning of&nbsp;June{% endif %} will be required to attend.
+                                Paid registration {% if phases.workshops_registration == 'announced' %}at&nbsp;the beginning of&nbsp;June{% endif %} will be required to&nbsp;attend.
                             {% endif %}
                         </p>
                     {% endif %}
